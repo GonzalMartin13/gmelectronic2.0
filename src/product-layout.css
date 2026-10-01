@@ -44,15 +44,15 @@
 .modal[aria-labelledby="product-title"] {
   display: flex;
   flex-direction: column;
-  width: min(820px, 94vw);
-  max-height: 90vh;
+  width: min(720px, 90vw);
+  max-height: 78vh;
 }
 
 .modal[aria-labelledby="product-title"] > .photo {
   flex: 0 0 auto;
   width: 100%;
-  height: min(390px, 46vh);
-  min-height: 240px;
+  height: min(260px, 30vh);
+  min-height: 180px;
   overflow: hidden;
   padding: 18px;
   position: relative;
@@ -107,13 +107,14 @@
   }
 
   .modal[aria-labelledby="product-title"] {
-    width: 96vw;
-    padding: 20px;
+    width: 92vw;
+    max-height: 82vh;
+    padding: 18px;
   }
 
   .modal[aria-labelledby="product-title"] > .photo {
-    height: min(300px, 38vh);
-    min-height: 210px;
+    height: min(220px, 26vh);
+    min-height: 160px;
     padding: 10px;
   }
 
