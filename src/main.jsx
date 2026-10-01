@@ -3,6 +3,7 @@ import {createOrderPdf,orderMessage as preparedMessage} from '../lib/order-docum
 import {createRoot} from 'react-dom/client';
 import {WHATSAPP,IVA_RATE,formatARS,stockLabel,canOrder,defaultVariant,consultUrl,referencePrice,comparePrice,loadPage,apiGet,apiPost,readSaved,save,savedCart,savedProfile,cartLine,refreshCart} from './catalog.mjs';
 import './styles.css';
+import './product-layout.css';
 
 const EMAIL='gonzalo.m.martin@gmail.com';
 const cleanName=n=>String(n||'').replace(/\s+/g,' ').trim();
