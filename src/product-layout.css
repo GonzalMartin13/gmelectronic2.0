@@ -57,6 +57,8 @@
 .promo-card {
   overflow: hidden;
   margin: 0;
+  aspect-ratio: 16 / 9;
+  padding: 6px;
   border: 2px solid #123a60;
   border-radius: 14px;
   background: #07182b;
@@ -66,9 +68,11 @@
 .promo-card img {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: contain;
   object-position: center;
+  border-radius: 9px;
 }
 
 .card .photo {
