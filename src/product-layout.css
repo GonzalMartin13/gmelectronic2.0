@@ -4,6 +4,16 @@
   align-items: stretch;
 }
 
+.layout > main,
+.featured,
+.promo-grid {
+  min-width: 0;
+}
+
+.layout > main {
+  overflow-x: hidden;
+}
+
 .card {
   display: flex;
   flex-direction: column;
