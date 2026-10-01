@@ -1,7 +1,7 @@
 import React,{useEffect,useMemo,useRef,useState} from 'react';
 import {createOrderPdf,orderMessage as preparedMessage} from '../lib/order-document.js';
 import {createRoot} from 'react-dom/client';
-import {WHATSAPP,IVA_RATE,formatARS,stockLabel,canOrder,defaultVariant,consultUrl,referencePrice,comparePrice,loadPage,apiPost,save,savedCart,savedProfile,cartLine,refreshCart} from './catalog.mjs';
+import {WHATSAPP,IVA_RATE,formatARS,stockLabel,canOrder,defaultVariant,consultUrl,referencePrice,comparePrice,loadPage,apiGet,apiPost,save,savedCart,savedProfile,cartLine,refreshCart} from './catalog.mjs';
 import './styles.css';
 
 const EMAIL='gonzalo.m.martin@gmail.com';
@@ -13,7 +13,8 @@ function App(){
  const [featuredProducts,setFeaturedProducts]=useState([]),[pagination,setPagination]=useState({page:1,pages:0,total:0}),[availability,setAvailability]=useState(''),[loadingMore,setLoadingMore]=useState(false),[busy,setBusy]=useState(false),[receipt,setReceipt]=useState(null);
  const attempt=useRef(null),catalogGeneration=useRef(0);
  const [products,setProducts]=useState([]),[catalogStatus,setCatalogStatus]=useState('loading'),[reload,setReload]=useState(0),[orderNotice,setOrderNotice]=useState('');
- const categories=useMemo(()=>[...new Set(products.map(p=>p.categoria).filter(Boolean))],[products]);
+ const [categories,setCategories]=useState([]);
+ useEffect(()=>{const controller=new AbortController();apiGet('/api/v1/categories',{signal:controller.signal}).then(result=>{if(!controller.signal.aborted)setCategories(result.data.map(row=>row.nombre))}).catch(()=>{});return()=>controller.abort()},[reload]);
 
 
  const [query,setQuery]=useState(''),[cat,setCat]=useState('Todas'),[sort,setSort]=useState('relevance');
