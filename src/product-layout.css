@@ -1,0 +1,123 @@
+/* Product images keep one predictable frame in every card. */
+.grid,
+.cards {
+  align-items: stretch;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.card .photo {
+  aspect-ratio: 4 / 3;
+  height: auto;
+  min-height: 0;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.card .photo img {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center;
+}
+
+.card h3 {
+  min-height: 2.7em;
+  height: auto;
+}
+
+.card .add {
+  margin-top: auto;
+}
+
+/* The product detail image occupies its own block and cannot cover the copy. */
+.modal[aria-labelledby="product-title"] {
+  display: flex;
+  flex-direction: column;
+  width: min(820px, 94vw);
+  max-height: 90vh;
+}
+
+.modal[aria-labelledby="product-title"] > .photo {
+  flex: 0 0 auto;
+  width: 100%;
+  height: min(390px, 46vh);
+  min-height: 240px;
+  overflow: hidden;
+  padding: 18px;
+  background: #f1f5f8;
+  cursor: default;
+}
+
+.modal[aria-labelledby="product-title"] > .photo img {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center;
+}
+
+.modal[aria-labelledby="product-title"] > p {
+  position: relative;
+  z-index: 1;
+  margin: 14px 0 0;
+  color: #52616d;
+  line-height: 1.65;
+}
+
+.modal[aria-labelledby="product-title"] > label {
+  display: grid;
+  gap: 7px;
+  margin-top: 18px;
+  color: #26343f;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.modal[aria-labelledby="product-title"] select {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #dbe3e8;
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+}
+
+.modal[aria-labelledby="product-title"] .detail-bottom {
+  margin-top: 18px;
+}
+
+@media (max-width: 700px) {
+  .card .photo {
+    aspect-ratio: 1 / 1;
+    height: auto;
+  }
+
+  .modal[aria-labelledby="product-title"] {
+    width: 96vw;
+    padding: 20px;
+  }
+
+  .modal[aria-labelledby="product-title"] > .photo {
+    height: min(300px, 38vh);
+    min-height: 210px;
+    padding: 10px;
+  }
+
+  .modal[aria-labelledby="product-title"] .detail-bottom {
+    align-items: stretch;
+  }
+
+  .modal[aria-labelledby="product-title"] .detail-bottom .primary {
+    width: 100%;
+    margin-left: 0;
+    text-align: center;
+  }
+}
+
