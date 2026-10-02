@@ -230,3 +230,4 @@
 .catalog-download-hero{background:rgba(7,24,43,.45);border-color:#4a7ba9;color:#fff}
 .catalog-download-hero:hover{background:#123a60}
 @media(max-width:600px){.hero-actions{align-items:stretch}.hero-actions>button,.hero-actions>.catalog-download{flex:1 1 180px}}
+.cart-tools{display:flex;justify-content:flex-end;padding-top:14px}.cart-clear{color:#143954;font-size:12px}.cart-clear:hover{background:#edf4fa;border-color:#9ab8d1}.cart-clear:focus-visible{outline:2px solid #078cff;outline-offset:3px}
