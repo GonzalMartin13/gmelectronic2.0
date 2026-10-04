@@ -1,5 +1,4 @@
 import React,{useEffect,useMemo,useState} from 'react';
-import {createRoot} from 'react-dom/client';
 import {apiGet} from './catalog.mjs';
 import './styles.css';
 import './product-layout.css';
@@ -12,7 +11,7 @@ function ReviewImage({src,alt}) {
 
 function PhotoReview() {
   const [assets,setAssets]=useState([]);
-  const [decisions,setDecisions]=useState(()=>JSON.parse(localStorage.getItem('gm-photo-review-v1')||'{}'));
+  const [decisions,setDecisions]=useState(()=>{try{return JSON.parse(localStorage.getItem('gm-photo-review-v1')||'{}')}catch{return {}}});
   const [index,setIndex]=useState(0);
   const [status,setStatus]=useState('Cargando imágenes…');
   const [dragStart,setDragStart]=useState(null);
