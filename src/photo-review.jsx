@@ -77,7 +77,7 @@ function PhotoReview() {
       <div className="review-actions"><button className="review-action delete" onClick={()=>decide('delete')} aria-label="Marcar para eliminar">✕</button><button className="review-action skip" onClick={()=>decide('skip')} aria-label="Saltar foto">↺</button><button className="review-action keep" onClick={()=>decide('keep')} aria-label="Conservar foto">✓</button></div>
     </section>
     <aside className="review-panel"><h2>Decisiones</h2><p>Las marcas se guardan en este navegador. Todavía no se elimina nada de la API.</p><button className="primary full" onClick={exportList} disabled={!counts.delete}>Descargar lista de eliminación ({counts.delete||0})</button><button className="secondary full" onClick={reset}>Reiniciar revisión</button><div className="review-help"><b>Cómo usarla</b><span>← Eliminar</span><span>→ Conservar</span><span>↑/↓ Saltar y revisar después</span></div></aside>
-    </main>:<section className="review-finished"><h2>Revisión terminada</h2><p>Ya no quedan fotos pendientes en esta sesión.</p></section>}
+    </main>:<section className="review-finished"><h2>Revisión terminada</h2><p>Tus decisiones están guardadas. Descargá la lista para aplicar las fotos marcadas.</p><button type="button" className="primary" onClick={exportList} disabled={!counts.delete}>Descargar lista de eliminación ({counts.delete||0})</button></section>}
   </div>;
 }
 
