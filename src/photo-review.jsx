@@ -62,7 +62,10 @@ function PhotoReview() {
     return()=>window.removeEventListener('keydown',onKeyDown);
   },[current,index,assets.length]);
   const exportList=()=>{
-    const marked=assets.filter(item=>decisions[item.id]==='delete').map(item=>({...item,action:'delete'}));
+    // Export the saved choices even while the catalog is still loading.
+    const byId=new Map(assets.map(item=>[item.id,item]));
+    const marked=Object.entries(decisions).filter(([,choice])=>choice==='delete').map(([id])=>({...byId.get(id),id,path:id,url:id,action:'delete'}));
+    if(!marked.length)return;
     const blob=new Blob([JSON.stringify({created_at:new Date().toISOString(),total_marked:marked.length,items:marked},null,2)],{type:'application/json'});
     const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='gm-fotos-para-eliminar.json';a.click();URL.revokeObjectURL(url);
   };
