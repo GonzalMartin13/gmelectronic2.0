@@ -63,9 +63,9 @@ function PhotoReview() {
     {current?<main className="review-workspace">
       <section className="review-card-wrap"><article className="review-card" onPointerDown={onPointerDown} onPointerUp={onPointerUp}><ReviewImage src={current.url} alt={current.name}/><div className="review-badge review-badge-delete">ELIMINAR</div><div className="review-badge review-badge-keep">CONSERVAR</div><div className="review-card-info"><h2>{current.name}</h2><span>{current.category}</span><small>Código{current.codes.length>1?'s':''}: {current.codes.join(' · ')}</small>{current.colors.length>0&&<small>Color: {current.colors.join(' · ')}</small>}<em>{index+1} de {assets.length}</em></div></article>
       <div className="review-actions"><button className="review-action delete" onClick={()=>decide('delete')} aria-label="Marcar para eliminar">✕</button><button className="review-action skip" onClick={()=>decide('skip')} aria-label="Saltar foto">↺</button><button className="review-action keep" onClick={()=>decide('keep')} aria-label="Conservar foto">✓</button></div>
-    </section>:<section className="review-finished"><h2>Revisión terminada</h2><p>Ya no quedan fotos pendientes en esta sesión.</p></section>}
+    </section>
     <aside className="review-panel"><h2>Decisiones</h2><p>Las marcas se guardan en este navegador. Todavía no se elimina nada de la API.</p><button className="primary full" onClick={exportList} disabled={!counts.delete}>Descargar lista de eliminación ({counts.delete||0})</button><button className="secondary full" onClick={reset}>Reiniciar revisión</button><div className="review-help"><b>Cómo usarla</b><span>← Eliminar</span><span>→ Conservar</span><span>↺ Saltar y revisar después</span></div></aside>
-    </main>:<div className="review-loading">{status}</div>}
+    </main>:<section className="review-finished"><h2>Revisión terminada</h2><p>Ya no quedan fotos pendientes en esta sesión.</p></section>}
   </div>;
 }
 
