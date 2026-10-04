@@ -49,6 +49,18 @@ function PhotoReview() {
     setDecisions(previous=>({...previous,[current.id]:value}));
     setIndex(value==='skip'?Math.min(index+1,assets.length):Math.min(index+1,assets.length));
   };
+  useEffect(()=>{
+    const onKeyDown=event=>{
+      const target=event.target;
+      if(target instanceof HTMLInputElement||target instanceof HTMLTextAreaElement||target instanceof HTMLSelectElement||target.isContentEditable)return;
+      const action=event.key==='ArrowLeft'?'delete':event.key==='ArrowRight'?'keep':event.key==='ArrowDown'||event.key==='ArrowUp'?'skip':null;
+      if(!action)return;
+      event.preventDefault();
+      decide(action);
+    };
+    window.addEventListener('keydown',onKeyDown);
+    return()=>window.removeEventListener('keydown',onKeyDown);
+  },[current,index,assets.length]);
   const exportList=()=>{
     const marked=assets.filter(item=>decisions[item.id]==='delete').map(item=>({...item,action:'delete'}));
     const blob=new Blob([JSON.stringify({created_at:new Date().toISOString(),total_marked:marked.length,items:marked},null,2)],{type:'application/json'});
@@ -58,13 +70,13 @@ function PhotoReview() {
   const onPointerDown=e=>setDragStart(e.clientX);
   const onPointerUp=e=>{if(dragStart===null)return;const delta=e.clientX-dragStart;setDragStart(null);if(Math.abs(delta)>70)decide(delta>0?'keep':'delete')};
   return <div className="photo-review-page">
-    <header className="review-header"><div><span className="eyebrow">GM ELECTRONICS · HERRAMIENTA INTERNA</span><h1>Revisar fotos del catálogo</h1><p>Deslizá a la derecha para conservar una foto y a la izquierda para marcarla para eliminar.</p></div><a className="secondary" href="/">Volver al catálogo</a></header>
+    <header className="review-header"><div><span className="eyebrow">GM ELECTRONICS · HERRAMIENTA INTERNA</span><h1>Revisar fotos del catálogo</h1><p>Deslizá a la derecha para conservarla, a la izquierda para eliminarla o usá las flechas del teclado.</p></div><a className="secondary" href="/">Volver al catálogo</a></header>
     <div className="review-stats"><span>{status}</span><b>Conservar: {counts.keep||0}</b><b>Eliminar: {counts.delete||0}</b><b>Sin decidir: {Math.max(assets.length-(counts.keep||0)-(counts.delete||0),0)}</b></div>
     {current?<main className="review-workspace">
       <section className="review-card-wrap"><article className="review-card" onPointerDown={onPointerDown} onPointerUp={onPointerUp}><ReviewImage src={current.url} alt={current.name}/><div className="review-badge review-badge-delete">ELIMINAR</div><div className="review-badge review-badge-keep">CONSERVAR</div><div className="review-card-info"><h2>{current.name}</h2><span>{current.category}</span><small>Código{current.codes.length>1?'s':''}: {current.codes.join(' · ')}</small>{current.colors.length>0&&<small>Color: {current.colors.join(' · ')}</small>}<em>{index+1} de {assets.length}</em></div></article>
       <div className="review-actions"><button className="review-action delete" onClick={()=>decide('delete')} aria-label="Marcar para eliminar">✕</button><button className="review-action skip" onClick={()=>decide('skip')} aria-label="Saltar foto">↺</button><button className="review-action keep" onClick={()=>decide('keep')} aria-label="Conservar foto">✓</button></div>
     </section>
-    <aside className="review-panel"><h2>Decisiones</h2><p>Las marcas se guardan en este navegador. Todavía no se elimina nada de la API.</p><button className="primary full" onClick={exportList} disabled={!counts.delete}>Descargar lista de eliminación ({counts.delete||0})</button><button className="secondary full" onClick={reset}>Reiniciar revisión</button><div className="review-help"><b>Cómo usarla</b><span>← Eliminar</span><span>→ Conservar</span><span>↺ Saltar y revisar después</span></div></aside>
+    <aside className="review-panel"><h2>Decisiones</h2><p>Las marcas se guardan en este navegador. Todavía no se elimina nada de la API.</p><button className="primary full" onClick={exportList} disabled={!counts.delete}>Descargar lista de eliminación ({counts.delete||0})</button><button className="secondary full" onClick={reset}>Reiniciar revisión</button><div className="review-help"><b>Cómo usarla</b><span>← Eliminar</span><span>→ Conservar</span><span>↑/↓ Saltar y revisar después</span></div></aside>
     </main>:<section className="review-finished"><h2>Revisión terminada</h2><p>Ya no quedan fotos pendientes en esta sesión.</p></section>}
   </div>;
 }
