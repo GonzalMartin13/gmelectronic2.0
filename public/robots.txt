@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /revisar-fotos
+Disallow: /*?revisar-fotos
+Sitemap: https://gmelectronic2-0.vercel.app/sitemap.xml
