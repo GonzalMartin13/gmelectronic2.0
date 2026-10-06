@@ -2,10 +2,10 @@ import React,{useEffect,useState} from 'react';
 import {apiGet,formatARS,stockLabel,WHATSAPP} from './catalog.mjs';
 
 const BOARDS=[
- {id:'philips',brand:'PHILIPS',title:'Auriculares Up Beat TAUE100',query:'TAUE100',items:[['1404','Philips Up Beat TAUE100']]},
- {id:'jbl',brand:'JBL',title:'C50HI · In-Ear Pure Bass',query:'C50HI',items:[['2231','JBL C50HI']]},
- {id:'noga',brand:'NOGA',title:'Parlantes portátiles',query:'NG-BT',items:[['0745','Noga NG-BT530'],['0744','Noga NG-BT535'],['0746','Noga NG-BT540'],['0726','Noga NG-BT670']]},
- {id:'motorola',brand:'MOTOROLA',title:'Auriculares Earbuds',query:'Earbuds',items:[['2334','Earbuds 2-S'],['2221','Earbuds 105'],['2321','Earbuds 3-S'],['3020','Earbuds 3C-S · USB C']]}
+ {id:'philips',brand:'PHILIPS',title:'Philips Up Beat TAUE100',query:'TAUE100',items:[['1404','Philips Up Beat TAUE100']]},
+ {id:'jbl',brand:'JBL',title:'JBL C50HI · Pure Bass',query:'C50HI',items:[['2231','JBL C50HI']]},
+ {id:'noga',brand:'NOGA',title:'Parlantes Noga portátiles',query:'NG-BT',items:[['0745','Noga NG-BT530'],['0744','Noga NG-BT535'],['0746','Noga NG-BT540'],['0726','Noga NG-BT670']]},
+ {id:'motorola',brand:'MOTOROLA',title:'Motorola Earbuds',query:'Earbuds',items:[['2334','Earbuds 2-S'],['2221','Earbuds 105'],['2321','Earbuds 3-S'],['3020','Earbuds 3C-S · USB C']]}
 ];
 function PromoPhoto({src,name}){const [failed,setFailed]=useState(false);useEffect(()=>setFailed(false),[src]);return src&&!failed?<img src={src} alt={name} loading="lazy" decoding="async" onError={()=>setFailed(true)}/>:<span className="promo-photo-placeholder">GM</span>}
 function LiveBoard({board,detail}){
