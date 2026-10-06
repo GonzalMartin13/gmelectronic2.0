@@ -9,11 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@neondatabase/auth": "0.5.0-beta",
     "@vitejs/plugin-react": "latest",
-    "vite": "latest",
+    "jspdf": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "jspdf": "latest"
-  },
-  "devDependencies": {}
+    "vite": "latest"
+  }
 }
