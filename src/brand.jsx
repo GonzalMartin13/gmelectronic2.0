@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const BRAND_MARK='/brand/gm-mark-v1.png';
+export const BRAND_MARK='/brand/gm-mark-v2.png';
 export function BrandMark({className='',decorative=false}){
  return <img className={'brand-mark '+className} src={BRAND_MARK} alt={decorative?'':'GM Electronics'} width="1280" height="1280" decoding="async"/>;
 }

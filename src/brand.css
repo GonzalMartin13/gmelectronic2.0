@@ -3,7 +3,7 @@
 .logo{gap:8px;min-width:220px}
 .logo .electronics{letter-spacing:3px;font-weight:700;font-size:11px}
 .about-mark{display:grid;place-items:center;font-size:inherit;letter-spacing:normal}
-.about-mark .brand-mark{width:min(280px,75%);height:auto;filter:drop-shadow(0 8px 22px #078cff20)}
+.about-mark .brand-mark{width:min(280px,75%);height:auto}
 .placeholder .brand-mark{width:100px;height:100px;opacity:.7}
 .promo-gm{display:flex;align-items:center;gap:6px}
 .promo-gm .brand-mark{width:clamp(24px,5.8cqw,44px);height:clamp(24px,5.8cqw,44px)}
