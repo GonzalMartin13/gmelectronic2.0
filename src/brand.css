@@ -1,0 +1,12 @@
+.brand-mark{display:block;object-fit:contain;flex-shrink:0}
+.logo .brand-mark{width:58px;height:58px}
+.logo{gap:8px;min-width:220px}
+.logo .electronics{letter-spacing:3px;font-weight:700;font-size:11px}
+.about-mark{display:grid;place-items:center;font-size:inherit;letter-spacing:normal}
+.about-mark .brand-mark{width:min(280px,75%);height:auto;filter:drop-shadow(0 8px 22px #078cff20)}
+.placeholder .brand-mark{width:100px;height:100px;opacity:.7}
+.promo-gm{display:flex;align-items:center;gap:6px}
+.promo-gm .brand-mark{width:clamp(24px,5.8cqw,44px);height:clamp(24px,5.8cqw,44px)}
+.promo-gm b{font-size:clamp(10px,2.4cqw,19px);letter-spacing:1px}
+.promo-photo-placeholder .brand-mark{width:70px;height:70px;opacity:.7}
+@media(max-width:600px){.logo{min-width:0}.logo .brand-mark{width:48px;height:48px}.logo .electronics{font-size:9px;letter-spacing:2px}.about-mark .brand-mark{width:180px}}
