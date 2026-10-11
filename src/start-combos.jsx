@@ -11,7 +11,7 @@ const money=value=>'$'+value.toLocaleString('es-AR');
 const whatsapp=text=>'https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(text);
 
 export function StartCombos(){return <section id="combos" className="start-combos" aria-labelledby="start-combos-title">
- <div className="combos-heading"><div><span className="eyebrow">NUEVOS COMBOS · GM START</span><h2 id="start-combos-title">Empezá a vender <em>tecnología.</em></h2><p>No hace falta arrancar con todo. Elegí el combo que se adapta a tu comercio y sumá cables, cargadores y audio a tu mostrador.</p></div><span className="combos-heading-stamp">3 opciones.<br/><strong>Un nuevo comienzo.</strong></span></div>
+ <div className="combos-heading"><div><span className="eyebrow">NUEVOS COMBOS · GM START</span><h2 id="start-combos-title">IDEAL PARA ARRANCAR A TRABAJAR CON NOSOTROS</h2><p>No hace falta arrancar con todo. Elegí el combo que se adapta a tu comercio y sumá cables, cargadores y audio a tu mostrador.</p></div><span className="combos-heading-stamp">3 opciones.<br/><strong>Un nuevo comienzo.</strong></span></div>
  <div className="combos-grid">{combos.map(combo=><article className={'start-combo start-combo-'+combo.id} key={combo.id} aria-labelledby={'combo-'+combo.id}>
   <div className="combo-label"><span>{combo.label}</span><b>{combo.tag}</b></div>
   <a className="combo-poster" href={combo.image} target="_blank" rel="noreferrer" aria-label={'Ver placa completa de '+combo.name}><img src={combo.image} alt={'Placa '+combo.name+' '+combo.label+' · '+money(combo.price)+' de referencia · '+combo.units+' unidades'} width="1122" height="1402" loading="lazy" decoding="async"/><span>Ver placa completa ↗</span></a>
