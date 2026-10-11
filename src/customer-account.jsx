@@ -4,14 +4,14 @@ import {BetterAuthReactAdapter} from '@neondatabase/auth/react/adapters';
 import {API_BASE,formatARS} from './catalog.mjs';
 import {createOrderPdf} from '../lib/order-document.js';
 import './customer-account.css';
+import {sessionHeaders} from './order-checks.mjs';
 
 export const accountsEnabled=Boolean(import.meta.env.VITE_NEON_AUTH_URL);
 const auth=accountsEnabled?createAuthClient(import.meta.env.VITE_NEON_AUTH_URL,{adapter:BetterAuthReactAdapter({fetchOptions:{credentials:'include'}})}):null;
 function checked(result){if(result?.error)throw new Error(result.error.message||'No pudimos acceder a tu cuenta.');return result?.data}
 async function accountRequest(path,{method='GET',body,signal}={}){
- const token=checked(await auth.token())?.token;
- if(!token)throw new Error('Ingresá nuevamente a tu cuenta.');
- const response=await fetch(API_BASE+path,{method,headers:{Authorization:'Bearer '+token,...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{}),signal:signal||AbortSignal.timeout(30000),cache:'no-store'});
+ const headers=await sessionHeaders(auth);
+ const response=await fetch(API_BASE+path,{method,headers:{...headers,...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{}),signal:signal||AbortSignal.timeout(30000),cache:'no-store'});
  const result=await response.json();
  if(!response.ok)throw new Error(result.error?.message||'No pudimos consultar tu cuenta.');
  return result;
@@ -34,9 +34,7 @@ export function useCustomerAccount(){
   const session=checked(await auth.getSession());
   if(!session?.user){if(user)throw new Error('Tu sesión venció. Ingresá nuevamente antes de preparar el pedido.');return {}}
   if(!session.user.emailVerified)throw new Error('Verificá tu email desde Mi cuenta para guardar el pedido.');
-  const token=checked(await auth.token())?.token;
-  if(!token)throw new Error('No pudimos verificar tu sesión. Reintentá desde Mi cuenta.');
-  return {Authorization:'Bearer '+token};
+  return sessionHeaders(auth);
  }
  async function signOut(){checked(await auth.signOut());setUser(null);setProfile(null);setError('')}
  return {user,profile,loading,error,restore,orderHeaders,signOut,setProfile};
