@@ -3,7 +3,7 @@ export const IVA_RATE=0.21;
 export const API_BASE='https://gm-electronics-api.onrender.com';
 export function hasPrice(value){return value!==null&&value!==undefined&&value!==''&&Number.isFinite(Number(value))&&Number(value)>0}
 export function formatARS(value){return hasPrice(value)?new Intl.NumberFormat('es-AR',{style:'currency',currency:'ARS',minimumFractionDigits:2,maximumFractionDigits:2}).format(Number(value)):'Consultar precio'}
-export function stockLabel(value){return value===true?'Disponible':'Consultar disponibilidad'}
+export function stockLabel(value){return value===true?'Disponible':value===false?'Sin stock':'Consultar disponibilidad'}
 export function canOrder(variant){return variant?.stock_disponible===true&&hasPrice(variant.precio_pesos)}
 export function defaultVariant(product){return product.variantes?.find(canOrder)||product.variantes?.find(v=>v.stock_disponible===true)||product.variantes?.[0]}
 export function consultUrl(product,variant=defaultVariant(product)){const missing=[];if(variant?.stock_disponible!==true)missing.push('disponibilidad');if(!hasPrice(variant?.precio_pesos))missing.push('precio');return 'https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent('Hola Gonzalo, quisiera consultar '+(missing.join(' y ')||'por este producto')+': '+product.nombre+' | Código: '+(variant?.codigo||product.id)+(variant?.color?' | Color: '+variant.color:''))}
