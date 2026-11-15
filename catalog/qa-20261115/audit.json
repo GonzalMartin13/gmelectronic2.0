@@ -4,9 +4,9 @@
   "source_batch": "9178d06b-cbd7-5ffa-b0d7-0ca71933ed75",
   "source_document_date": "2026-11-13",
   "reference_sha256": "15056ac867ba45c3cabc46d4ae23290417228924981c33d5f53bd6b7fb582b41",
-  "sha256": "9e065afbc6df2c483b6b7fc0e8f4bf1403c375ff557f414f02b72a9ba2e71883",
-  "bytes": 11197059,
-  "pages": 42,
+  "sha256": "e56a1bea3db0d329c4ffd459a4194306db63912c742e124e41aed7f38dc9187b",
+  "bytes": 11134108,
+  "pages": 41,
   "codes": 594,
   "prices_verified": 594,
   "unavailable_codes": 0,
@@ -3076,6 +3076,11 @@
       "page": 39
     },
     {
+      "code": "2362",
+      "price": 3074.0,
+      "page": 39
+    },
+    {
       "code": "2042",
       "price": 6740.0,
       "page": 40
@@ -3124,11 +3129,6 @@
       "code": "2301",
       "price": 41733.0,
       "page": 41
-    },
-    {
-      "code": "2362",
-      "price": 3074.0,
-      "page": 42
     }
   ]
 }
