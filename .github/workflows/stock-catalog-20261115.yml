@@ -1,0 +1,37 @@
+name: Prepare verified stock catalog
+on:
+  push:
+    branches: [catalog-refresh-20261115]
+    paths:
+      - scripts/refresh-stock-catalog-20261115.py
+      - catalog/source-20261115.json
+      - .github/workflows/stock-catalog-20261115.yml
+permissions:
+  contents: write
+concurrency:
+  group: stock-catalog-20261115
+  cancel-in-progress: true
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install PyMuPDF==1.26.5 Pillow==11.3.0 requests==2.32.5
+      - run: python scripts/refresh-stock-catalog-20261115.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Save verified PDF and QA on the preparation branch
+        run: |
+          git config user.name "GM Catalog Build"
+          git config user.email "catalog-build@users.noreply.github.com"
+          git add public/Catalogo_GM_Electronics_4x4_15Nov2026_Stock.pdf catalog/qa-20261115
+          git commit -m "Prepare verified 594-code stock catalog and QA"
+          git push origin HEAD:catalog-refresh-20261115
