@@ -113,7 +113,7 @@ card_bottom=first_code_rect.y0+price_span["bbox"][3]-first_code_rect.y0+5
 card=fitz.Rect(card_left,card_top,card_left+card_width,card_bottom)
 # Find the original card border color / fill where available.
 frames=[d for d in p0.get_drawings() if d["rect"].contains(first_code_rect) and d["rect"].width<col_step+10 and d["rect"].height<row_step+10]
-frame=min(frames,key=lambda d:d["rect"].get_area()) if frames else None
+frame=min(frames,key=lambda d:d["rect"].width*d["rect"].height) if frames else None
 if frame:
  card=frame["rect"]
  last.draw_rect(card,color=frame.get("color") or (.82,.85,.88),fill=frame.get("fill"),width=frame.get("width") or .6,overlay=True)
