@@ -96,12 +96,15 @@ layout={"width":width,"height":height,"row_step":row_step,"column_step":col_step
 # Remove content inside all cards without altering the retained pages.
 doc.insert_pdf(fitz.open(stream=reference,filetype="pdf"),from_page=0,to_page=0)
 last=doc[-1]
+p0=doc[0]
 last.add_redact_annot(fitz.Rect(0,heading["bbox"][1]-1,width,footer["bbox"][1]-4),fill=(1,1,1))
 last.apply_redactions(images=1,graphics=2)
 # Rebuild the new first card using the approved text positions, sizes and colors.
 def insert_at_span(page,span,text,font="helv"):
  page.insert_text(span["origin"],text,fontname=font,fontsize=span["size"],color=rgb(span["color"]))
 insert_at_span(last,heading,"ADAPTADORES","hebo")
+list_span=next(s for s in ss if "Lista 190" in s["text"])
+insert_at_span(last,list_span,list_span["text"])
 r=wanted["2362"]
 card_left=first_code_rect.x0-5
 card_top=name_span["bbox"][1]-5
@@ -113,9 +116,9 @@ frames=[d for d in p0.get_drawings() if d["rect"].contains(first_code_rect) and 
 frame=min(frames,key=lambda d:d["rect"].get_area()) if frames else None
 if frame:
  card=frame["rect"]
- last.draw_rect(card,color=frame.get("color") or (.82,.85,.88),fill=frame.get("fill"),width=frame.get("width") or .6,overlay=False)
+ last.draw_rect(card,color=frame.get("color") or (.82,.85,.88),fill=frame.get("fill"),width=frame.get("width") or .6,overlay=True)
 else:
- last.draw_rect(card,color=(.82,.85,.88),width=.6,overlay=False)
+ last.draw_rect(card,color=(.82,.85,.88),width=.6,overlay=True)
 # Fit the verified full supplier title without truncation.
 font_size=name_span["size"]
 title_rect=fitz.Rect(name_span["bbox"][0],name_span["bbox"][1]-1,card.x1-5,name_span["bbox"][1]+42)
