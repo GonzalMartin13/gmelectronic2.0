@@ -1,41 +1,42 @@
-import React,{useEffect,useState} from 'react';
+import React,{useEffect,useRef,useState} from 'react';
 import {formatARS,WHATSAPP} from './catalog.mjs';
-import {BrandMark} from './brand.jsx';
 import {FEATURED_BOARDS,FEATURED_REVISION,loadFeaturedRows} from './featured-promos.mjs';
 
-function PromoPhoto({src,name}){
- const [failed,setFailed]=useState(false);
- useEffect(()=>setFailed(false),[src]);
- return src&&!failed
-  ?<img src={src} alt={name} loading="lazy" decoding="async" onError={()=>setFailed(true)}/>
-  :<span className="promo-photo-placeholder"><BrandMark decorative/></span>;
-}
-function LiveBoard({board,detail}){
- const [rows,setRows]=useState(null),[error,setError]=useState(false),[reload,setReload]=useState(0);
- useEffect(()=>{
-  const controller=new AbortController();
-  setError(false);setRows(null);
-  loadFeaturedRows(board,{signal:controller.signal})
-   .then(result=>{if(!controller.signal.aborted)setRows(result)})
-   .catch(()=>{if(!controller.signal.aborted)setError(true)});
-  return()=>controller.abort();
- },[board,reload]);
- const consult='https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent('Hola Gonzalo, me interesan los destacados de '+board.title+'. ¿Me confirmás las opciones disponibles?');
- const dates=[...new Set((rows||[]).map(row=>row.variant.fecha_lista).filter(Boolean))].sort();
- const date=dates.length===1?dates[0].split('-').reverse().join('/'):'';
- return <article className={'live-promo live-promo-'+board.id} aria-label={board.title} data-featured-board={board.id}>
-  <header><span className="promo-gm"><BrandMark decorative/><b>ELECTRONICS</b></span><span className="promo-current">PRECIO DE LISTA</span></header>
-  <div className="live-promo-title"><span>{board.brand}</span><h3>{board.title}</h3><p>{board.description}</p></div>
-  {error?<div className="promo-loading" role="status"><span>Consultá las opciones disponibles.</span><button type="button" onClick={()=>setReload(v=>v+1)}>Volver a intentar</button></div>
-   :rows===null?<div className="promo-loading" role="status">Cargando productos destacados…</div>
-   :rows.length===0?<div className="promo-loading" role="status">Por el momento no hay productos disponibles en esta selección.</div>
-   :<div className="live-promo-items">{rows.map(row=><button type="button" className="live-promo-item" key={row.code} data-featured-code={row.code} onClick={()=>detail({...row.product,selectedVariantId:row.variant.api_id})} aria-label={'Ver '+row.label+' · Código '+row.code}>
-    <div className="live-promo-photo"><PromoPhoto src={row.variant.imagenes?.[0]||row.product.imagen} name={row.label}/></div>
-    <div className="live-promo-info"><strong>{row.label}</strong><span className="live-promo-note">{row.note}</span><small>Código {row.code}</small><b className="live-promo-price">{formatARS(row.variant.precio_pesos)}</b><span className="live-promo-stock">Disponible</span></div>
-   </button>)}</div>}
-  <footer><span>Precio por unidad{date?' · Lista '+date:''}</span><a href={consult} target="_blank" rel="noreferrer">Consultar productos →</a></footer>
+function PosterBoard({board,detail,index}){
+ const [pending,setPending]=useState(null),[notice,setNotice]=useState('');
+ const active=useRef(null);
+ useEffect(()=>()=>active.current?.abort(),[]);
+ async function open(item){
+  active.current?.abort();
+  const controller=new AbortController();active.current=controller;
+  setPending(item.code);setNotice('Confirmando precio y disponibilidad…');
+  try{
+   const [row]=await loadFeaturedRows({items:[item]},{signal:controller.signal});
+   if(controller.signal.aborted)return;
+   if(!row){setNotice('Consultanos por el código '+item.code+' para confirmar las opciones disponibles.');return;}
+   setNotice('');
+   detail({...row.product,selectedVariantId:row.variant.api_id});
+  }catch{
+   if(!controller.signal.aborted)setNotice('No pudimos confirmar el código '+item.code+'. Reintentá o consultanos por WhatsApp.');
+  }finally{
+   if(!controller.signal.aborted)setPending(null);
+  }
+ }
+ const consult='https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent('Hola Gonzalo, me interesan los productos de '+board.title+' (códigos '+board.items.map(item=>item.code).join(', ')+'). ¿Me confirmás precio y disponibilidad?');
+ const alt=board.title+'. '+board.items.map(item=>item.label+', código '+item.code+', '+formatARS(item.posterPrice)).join('; ')+'. Precios por unidad de la lista del 13/11/2026; consultar disponibilidad.';
+ return <article className="featured-poster-card" data-featured-board={board.id} aria-labelledby={'featured-title-'+board.id}>
+  <h3 id={'featured-title-'+board.id} className="featured-sr-only">{board.title}</h3>
+  <img className="featured-poster" src={board.poster} alt={alt} width="720" height="960" loading="eager" decoding="async" fetchPriority={index===0?'high':'auto'}/>
+  <div className="featured-poster-actions">
+   <span className="featured-action-label">Ver producto y precio vigente</span>
+   <div className="featured-product-links">{board.items.map(item=><button key={item.code} type="button" data-featured-code={item.code} disabled={pending!==null} onClick={()=>open(item)} aria-label={'Ver '+item.label+' · Código '+item.code}>
+    <span>{item.label}<small>Cód. {item.code}</small></span><span aria-hidden="true">{pending===item.code?'…':'↗'}</span>
+   </button>)}</div>
+   <p className="featured-poster-status" role="status" aria-live="polite">{notice}</p>
+   <a className="featured-consult" href={consult} target="_blank" rel="noreferrer">Consultar con Gonzalo →</a>
+  </div>
  </article>;
 }
 export function LivePromos({detail}){
- return <div className="promo-grid" data-featured-revision={FEATURED_REVISION}>{FEATURED_BOARDS.map(board=><LiveBoard key={board.id} board={board} detail={detail}/>)}</div>;
+ return <><div className="promo-grid" data-featured-revision={FEATURED_REVISION}>{FEATURED_BOARDS.map((board,index)=><PosterBoard key={board.id} board={board} detail={detail} index={index}/>)}</div><p className="featured-price-note">Precios de referencia de la lista del 13/11/2026. Al abrir un producto confirmamos su precio vigente y disponibilidad.</p></>;
 }

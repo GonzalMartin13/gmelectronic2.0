@@ -1,21 +1,22 @@
 import {apiGet,hasPrice} from './catalog.mjs';
 
-export const FEATURED_REVISION='2026-11-17';
+export const FEATURED_REVISION='2026-11-18-static';
+export const FEATURED_LIST_DATE='2026-11-13';
 export const FEATURED_BOARDS=[
- {id:'carga',brand:'KOSMO · SOUL · NOGA',title:'Cargá a tu manera',description:'USB, carga rápida e inalámbrica Qi.',items:[
-  {code:'2218',label:'Kosmo 2A · USB',note:'Económico · sin cable'},
-  {code:'4507',label:'Soul PD 20 W · USB-C',note:'Carga rápida · sin cable'},
-  {code:'1986',label:'Noga NG-Q05 · Qi',note:'Inalámbrico · para equipos Qi'}
+ {id:'carga',brand:'KOSMO · SOUL · NOGA',title:'Cargá a tu manera',description:'USB, carga rápida e inalámbrica Qi.',poster:'/promos/carga-20261118.webp',items:[
+  {code:'2218',label:'Kosmo 2A · USB',note:'Económico · sin cable',posterPrice:2967},
+  {code:'4507',label:'Soul PD 20 W · USB-C',note:'Carga rápida · sin cable',posterPrice:5954},
+  {code:'1986',label:'Noga NG-Q05 · Qi',note:'Inalámbrico · para equipos Qi',posterPrice:8255}
  ]},
- {id:'netmak-bluetooth',brand:'NETMAK',title:'Netmak, sin cables',description:'Tres opciones de auriculares Bluetooth.',items:[
-  {code:'7014',label:'Netmak NM-MELOW',note:'Azul · Bluetooth 5.3'},
-  {code:'7019',label:'Netmak NM-BIZA',note:'Azul · display de batería'},
-  {code:'7022',label:'Netmak NM-SMART',note:'Pantalla táctil · ANC'}
+ {id:'netmak-bluetooth',brand:'NETMAK',title:'Netmak, sin cables',description:'Tres opciones de auriculares Bluetooth.',poster:'/promos/netmak-bluetooth-20261118.webp',items:[
+  {code:'7014',label:'Netmak NM-MELOW',note:'Azul · Bluetooth 5.3',posterPrice:13010},
+  {code:'7019',label:'Netmak NM-BIZA',note:'Azul · display de batería',posterPrice:15902},
+  {code:'7022',label:'Netmak NM-SMART',note:'Pantalla táctil · ANC',posterPrice:21684}
  ]},
- {id:'audio-diario',brand:'NOGA · SOUL',title:'Audio para llevar',description:'Parlante portátil y auriculares con cable.',items:[
-  {code:'1138',label:'Parlante Noga Pocket',note:'Azul · Bluetooth · NG-PK08'},
-  {code:'1702',label:'Noga NG-1650 · 3,5 mm',note:'Blanco · con micrófono'},
-  {code:'4500',label:'Soul MLS-S389 · USB-C',note:'Negro · con micrófono'}
+ {id:'parlantes',brand:'NOGA · NETMAK · JBL',title:'Parlantes para llevar',description:'Tres parlantes portátiles para elegir.',poster:'/promos/parlantes-20261118.webp',items:[
+  {code:'1138',label:'Noga Pocket NG-PK08',note:'Azul · Bluetooth',posterPrice:10098},
+  {code:'7053',label:'Netmak NM-MUV',note:'Gris · Bluetooth · RGB',posterPrice:14456},
+  {code:'3031',label:'JBL GO Essential 2',note:'Rojo · Bluetooth',posterPrice:60987}
  ]}
 ];
 
