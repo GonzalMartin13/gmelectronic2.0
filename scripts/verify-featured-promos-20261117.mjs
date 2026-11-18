@@ -44,7 +44,7 @@ try{
  for(const item of items){
   const tile=page.locator('[data-featured-code="'+item.code+'"]'),variant=fixtures.get(item.code).data.flatMap(p=>p.variantes).find(v=>v.codigo===item.code);
   const price=await tile.locator('.live-promo-price').innerText();assert.equal(price,formatARS(variant.precio_pesos));
-  await tile.locator('img').evaluate(async img=>{await img.decode();if(!img.naturalWidth)throw Error('Broken photo');});
+  await tile.scrollIntoViewIfNeeded();await tile.locator('img').evaluate(async img=>{await img.decode();if(!img.naturalWidth)throw Error('Broken photo');});
   prices.push({code:item.code,price,date:variant.fecha_lista});
  }
  async function layout(label){
