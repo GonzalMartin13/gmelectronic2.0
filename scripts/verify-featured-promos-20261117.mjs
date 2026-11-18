@@ -22,7 +22,7 @@ const withdrawn=async path=>{
  return data;
 };
 for(const board of FEATURED_BOARDS)assert.deepEqual((await loadFeaturedRows(board,{request:withdrawn})).map(x=>x.code),board.items.filter(x=>!omit.has(x.code)).map(x=>x.code));
-const browser=await chromium.launch(),page=await browser.newPage({viewport:{width:1440,height:1100}}),errors=[];let mutations=0,simulate=false;
+const browser=await chromium.launch({channel:'chrome'}),page=await browser.newPage({viewport:{width:1440,height:1100}}),errors=[];let mutations=0,simulate=false;
 page.on('pageerror',e=>errors.push(e.message));
 await page.route(API_BASE+'/**',async route=>{
  if(route.request().method()!=='GET'){mutations++;return route.abort();}
