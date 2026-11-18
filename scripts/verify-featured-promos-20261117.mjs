@@ -28,6 +28,7 @@ await page.route(API_BASE+'/**',async route=>{
  if(route.request().method()!=='GET'){mutations++;return route.abort();}
  if(mode==='public')return route.continue();
  const url=new URL(route.request().url()),code=url.searchParams.get('q');
+ if(!url.pathname.startsWith('/api/'))return route.continue();
  if(url.pathname==='/api/v1/products'&&fixtures.has(code))return route.fulfill({json:simulate?await withdrawn(url.pathname+url.search):fixtures.get(code),headers:{'access-control-allow-origin':'*'}});
  const response=await fetch(url,{signal:AbortSignal.timeout(90000)});
  return route.fulfill({status:response.status,body:await response.text(),contentType:'application/json',headers:{'access-control-allow-origin':'*'}});
@@ -44,7 +45,7 @@ try{
  for(const item of items){
   const tile=page.locator('[data-featured-code="'+item.code+'"]'),variant=fixtures.get(item.code).data.flatMap(p=>p.variantes).find(v=>v.codigo===item.code);
   const price=await tile.locator('.live-promo-price').innerText();assert.equal(price,formatARS(variant.precio_pesos));
-  await tile.scrollIntoViewIfNeeded();await tile.locator('img').evaluate(async img=>{await img.decode();if(!img.naturalWidth)throw Error('Broken photo');});
+  await tile.scrollIntoViewIfNeeded();console.log('Photo check',item.code,await tile.locator('img').getAttribute('src'));await tile.locator('img').evaluate(async img=>{await img.decode();if(!img.naturalWidth)throw Error('Broken photo');});
   prices.push({code:item.code,price,date:variant.fecha_lista});
  }
  async function layout(label){
