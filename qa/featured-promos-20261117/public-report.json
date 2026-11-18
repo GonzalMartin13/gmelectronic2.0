@@ -1,0 +1,149 @@
+{
+  "status": "passed",
+  "site": "https://gmelectronic2-0.vercel.app",
+  "boards": 3,
+  "products": [
+    {
+      "code": "2218",
+      "price": "$ 2.967,00",
+      "date": "2026-11-13"
+    },
+    {
+      "code": "4507",
+      "price": "$ 5.954,00",
+      "date": "2026-11-13"
+    },
+    {
+      "code": "1986",
+      "price": "$ 8.255,00",
+      "date": "2026-11-13"
+    },
+    {
+      "code": "7014",
+      "price": "$ 13.010,00",
+      "date": "2026-11-13"
+    },
+    {
+      "code": "7019",
+      "price": "$ 15.902,00",
+      "date": "2026-11-13"
+    },
+    {
+      "code": "7022",
+      "price": "$ 21.684,00",
+      "date": "2026-11-13"
+    },
+    {
+      "code": "1138",
+      "price": "$ 10.098,00",
+      "date": "2026-11-13"
+    },
+    {
+      "code": "1702",
+      "price": "$ 1.667,00",
+      "date": "2026-11-13"
+    },
+    {
+      "code": "4500",
+      "price": "$ 5.343,00",
+      "date": "2026-11-13"
+    }
+  ],
+  "desktop": [
+    {
+      "code": "2218",
+      "rowRight": 631.453125,
+      "priceRight": 564.859375
+    },
+    {
+      "code": "4507",
+      "rowRight": 631.453125,
+      "priceRight": 564.859375
+    },
+    {
+      "code": "1986",
+      "rowRight": 631.453125,
+      "priceRight": 564.859375
+    },
+    {
+      "code": "7014",
+      "rowRight": 1001.53125,
+      "priceRight": 948.859375
+    },
+    {
+      "code": "7019",
+      "rowRight": 1001.53125,
+      "priceRight": 948.859375
+    },
+    {
+      "code": "7022",
+      "rowRight": 1001.53125,
+      "priceRight": 948.859375
+    },
+    {
+      "code": "1138",
+      "rowRight": 1371.59375,
+      "priceRight": 1318.921875
+    },
+    {
+      "code": "1702",
+      "rowRight": 1371.59375,
+      "priceRight": 1305
+    },
+    {
+      "code": "4500",
+      "rowRight": 1371.59375,
+      "priceRight": 1305
+    }
+  ],
+  "mobile": [
+    {
+      "code": "2218",
+      "rowRight": 355,
+      "priceRight": 316.40625
+    },
+    {
+      "code": "4507",
+      "rowRight": 355,
+      "priceRight": 316.40625
+    },
+    {
+      "code": "1986",
+      "rowRight": 355,
+      "priceRight": 316.40625
+    },
+    {
+      "code": "7014",
+      "rowRight": 355,
+      "priceRight": 334.5
+    },
+    {
+      "code": "7019",
+      "rowRight": 355,
+      "priceRight": 334.5
+    },
+    {
+      "code": "7022",
+      "rowRight": 355,
+      "priceRight": 334.5
+    },
+    {
+      "code": "1138",
+      "rowRight": 355,
+      "priceRight": 334.5
+    },
+    {
+      "code": "1702",
+      "rowRight": 355,
+      "priceRight": 316.40625
+    },
+    {
+      "code": "4500",
+      "rowRight": 355,
+      "priceRight": 316.40625
+    }
+  ],
+  "withdrawal": "verified in preview",
+  "mutations": 0,
+  "errors": []
+}
