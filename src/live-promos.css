@@ -19,3 +19,14 @@
 @media(max-width:1100px){#destacados .promo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:780px){#destacados .promo-grid{grid-template-columns:1fr;gap:20px}.featured-poster-actions{padding:16px}.featured-product-links button{font-size:14px}}
 @media(prefers-reduced-motion:reduce){.featured-product-links button{transition:none}}
+
+/* Price text stays separate from the artwork so supplier updates retain the approved design. */
+.featured-art{position:relative;container-type:inline-size}
+.featured-current-price{position:absolute;left:51%;right:4%;height:9%;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding-left:2%;background:#030e20;color:#fff;box-sizing:border-box;line-height:1}
+.featured-current-price strong{font-family:Georgia,"Times New Roman",serif;font-weight:700;font-size:9.8cqw;white-space:nowrap;letter-spacing:-.35cqw}
+.featured-current-price small{font-size:2.8cqw;color:#ffcf8c;font-weight:700;margin-top:.6cqw;letter-spacing:.1cqw}
+.featured-art-carga .featured-current-price{left:55%;right:3%}.featured-art-carga .price-position-0{top:30.2%}.featured-art-carga .price-position-1{top:53.2%}.featured-art-carga .price-position-2{top:78.2%}
+.featured-art-netmak-bluetooth .price-position-0{top:28.3%}.featured-art-netmak-bluetooth .price-position-1{top:51.5%}.featured-art-netmak-bluetooth .price-position-2{top:74.8%}
+.featured-art-parlantes .price-position-0{top:28.4%}.featured-art-parlantes .price-position-1{top:54.6%}.featured-art-parlantes .price-position-2{top:79.8%}
+.featured-current-date{position:absolute;bottom:1.2%;left:16%;right:9%;height:5.2%;background:#030e20;color:#fff;font-family:Georgia,"Times New Roman",serif;font-size:2.5cqw;font-style:italic;text-align:center;display:flex;flex-direction:column;justify-content:center;line-height:1.25}
+.featured-art-netmak-bluetooth .featured-current-date{bottom:2.6%;height:6.4%;left:18%;right:11%}

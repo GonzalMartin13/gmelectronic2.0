@@ -1,0 +1,39 @@
+name: Verify and publish Lista 198 catalog
+on:
+  push:
+    branches: [catalog-list198-20261124, main]
+    paths:
+      - catalog/source-20261124.json
+      - scripts/prepare-list198.py
+      - .github/workflows/list198-20261124.yml
+      - public/Catalogo_GM_Electronics_4x4_24Nov2026_Stock.pdf
+permissions:
+  contents: write
+jobs:
+  catalog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install PyMuPDF==1.26.5 requests==2.32.5
+      - if: github.ref_name != 'main'
+        run: python scripts/prepare-list198.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - if: github.ref_name != 'main'
+        name: Save verified commercial PDF and exact API export
+        run: |
+          git config user.name "GM Catalog Build"
+          git config user.email "catalog-build@users.noreply.github.com"
+          git add public/Catalogo_GM_Electronics_4x4_24Nov2026_Stock.pdf public/productos.json src/data/productos.json catalog/qa-20261124
+          git commit -m "Save verified Lista 198 catalog and 701-code API export"
+          git push origin HEAD:catalog-list198-20261124
+      - if: github.ref_name == 'main'
+        run: python scripts/prepare-list198.py --public
